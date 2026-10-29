@@ -1,0 +1,87 @@
+### Build Tools (Maven & Gradle) ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+.gradle/
+buildOutput/
+
+### IntelliJ IDEA ###
+# Игнорируем персональные кэши и локальные данные пользователя
+.idea/
+!.idea/codeStyles/
+!.idea/encodings.xml
+!.idea/inspectionProfiles/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Если вы решите хранить общие настройки .idea в git,
+# то вместо строки '.idea/' выше раскомментируйте блок ниже:
+# .idea/workspace.xml
+# .idea/tasks.xml
+# .idea/usage.statistics.xml
+# .idea/shelf/
+# .idea/dictionaries/
+# .idea/libraries/
+# .idea/dataSources/
+# .idea/dataSources.local.xml
+# .idea/sqlDataSources.xml
+# .idea/dynamic.xml
+# .idea/uiDesigner.xml
+# .idea/sonarlint/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Secrets, Environment & Local Configs ###
+.env
+.env.*
+!.env.example
+application-local.properties
+application-local.yml
+application-local.yaml
+
+### Logs & Diagnostics ###
+*.log
+logs/
+*.hprof
+hs_err_pid*
+replay_pid*
+
+### OS & Temporary Files ###
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+### Kotlin & Others ###
+.kotlin
+.attach_pid*

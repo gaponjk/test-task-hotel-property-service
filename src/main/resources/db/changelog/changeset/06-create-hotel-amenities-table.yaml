@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 06-create-hotel-amenities-table
+      author: Yaraslau Haponenka
+      changes:
+        - createTable:
+            tableName: hotel_amenities
+            columns:
+              - column:
+                  name: hotel_id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_hotel_amenities
+                    foreignKeyName: fk_hotel_amenities_hotels
+                    referencedTableName: hotels
+                    referencedColumnNames: id
+                    nullable: false
+                    deleteCascade: true
+              - column:
+                  name: amenity_id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_hotel_amenities
+                    foreignKeyName: fk_hotel_amenities_amenities
+                    referencedTableName: amenities
+                    referencedColumnNames: id
+                    nullable: false
+                    deleteCascade: true

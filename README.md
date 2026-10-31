@@ -6,7 +6,7 @@ A lightweight RESTful API service built with **Java 21** and **Spring Boot 3.4**
 
 1. **Run the application:**
    ```bash
-   ./mvnw spring-boot:run
+   mvn spring-boot:run
    ```
    The service starts on port **8092**.
 

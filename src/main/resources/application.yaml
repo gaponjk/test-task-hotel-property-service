@@ -1,7 +1,5 @@
 server:
   port: 8092
-  servlet:
-    context-path: /property-view
 
 spring:
   datasource:
@@ -20,4 +18,5 @@ spring:
     show-sql: false
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
+    contexts: dev
     enabled: true

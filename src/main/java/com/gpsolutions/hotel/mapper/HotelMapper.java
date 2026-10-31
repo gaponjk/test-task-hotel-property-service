@@ -14,167 +14,152 @@ import com.gpsolutions.hotel.entity.Amenity;
 import com.gpsolutions.hotel.entity.ArrivalTime;
 import com.gpsolutions.hotel.entity.Contact;
 import com.gpsolutions.hotel.entity.Hotel;
-import org.springframework.stereotype.Component;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 public class HotelMapper {
 
-    // GET /hotels, GET /search POST /hotels
-    public HotelShortResponse toShortResponse(Hotel hotel) {
-        if (hotel == null) {
-            return null;
-        }
-
-        String formattedAddress = formatAddress(hotel.getAddress());
-        String phone = hotel.getContact() != null ? hotel.getContact().getPhone() : null;
-
-        return new HotelShortResponse(
-                hotel.getId(),
-                hotel.getName(),
-                hotel.getDescription(),
-                formattedAddress,
-                phone
-        );
+  // GET /hotels, GET /search POST /hotels
+  public HotelShortResponse toShortResponse(Hotel hotel) {
+    if (hotel == null) {
+      return null;
     }
 
-    // GET /hotels/{id}
-    public HotelDetailsResponse toDetailsResponse(Hotel hotel) {
-        if (hotel == null) {
-            return null;
-        }
+    String formattedAddress = formatAddress(hotel.getAddress());
+    String phone = hotel.getContact() != null ? hotel.getContact().getPhone() : null;
 
-        List<String> amenityNames = hotel.getAmenities() != null
-                ? hotel.getAmenities().stream()
-                .map(Amenity::getName)
-                .toList()
-                : Collections.emptyList();
+    return new HotelShortResponse(
+        hotel.getId(), hotel.getName(), hotel.getDescription(), formattedAddress, phone);
+  }
 
-        return new HotelDetailsResponse(
-                hotel.getId(),
-                hotel.getName(),
-                hotel.getDescription(),
-                hotel.getBrand(),
-                toAddressResponse(hotel.getAddress()),
-                toContactsResponse(hotel.getContact()),
-                toArrivalTimeResponse(hotel.getArrivalTime()),
-                amenityNames
-        );
+  // GET /hotels/{id}
+  public HotelDetailsResponse toDetailsResponse(Hotel hotel) {
+    if (hotel == null) {
+      return null;
     }
 
-    //From DTO to Hotel
-    public Hotel toEntity(CreateHotelRequest request) {
-        if (request == null) {
-            return null;
-        }
+    List<String> amenityNames =
+        hotel.getAmenities() != null
+            ? hotel.getAmenities().stream().map(Amenity::getName).toList()
+            : Collections.emptyList();
 
-        Hotel hotel = new Hotel();
-        hotel.setName(request.name().strip());
-        hotel.setDescription(request.description() != null ? request.description().strip() : null);
-        hotel.setBrand(request.brand().strip());
+    return new HotelDetailsResponse(
+        hotel.getId(),
+        hotel.getName(),
+        hotel.getDescription(),
+        hotel.getBrand(),
+        toAddressResponse(hotel.getAddress()),
+        toContactsResponse(hotel.getContact()),
+        toArrivalTimeResponse(hotel.getArrivalTime()),
+        amenityNames);
+  }
 
-        if (request.address() != null) {
-            Address address = toAddressEntity(request.address());
-            address.setHotel(hotel);
-            hotel.setAddress(address);
-        }
-
-        if (request.contacts() != null) {
-            Contact contact = toContactEntity(request.contacts());
-            contact.setHotel(hotel);
-            hotel.setContact(contact);
-        }
-
-        if (request.arrivalTime() != null) {
-            ArrivalTime arrivalTime = toArrivalTimeEntity(request.arrivalTime());
-            arrivalTime.setHotel(hotel);
-            hotel.setArrivalTime(arrivalTime);
-        }
-
-        hotel.setAmenities(new HashSet<>());
-        return hotel;
+  // From DTO to Hotel
+  public Hotel toEntity(CreateHotelRequest request) {
+    if (request == null) {
+      return null;
     }
 
-    private AddressResponse toAddressResponse(Address address) {
-        if (address == null) {
-            return null;
-        }
-        return new AddressResponse(
-                address.getHouseNumber(),
-                address.getStreet(),
-                address.getCity(),
-                address.getCountry(),
-                address.getPostCode()
-        );
+    Hotel hotel = new Hotel();
+    hotel.setName(request.name().strip());
+    hotel.setDescription(request.description() != null ? request.description().strip() : null);
+    hotel.setBrand(request.brand().strip());
+
+    if (request.address() != null) {
+      Address address = toAddressEntity(request.address());
+      address.setHotel(hotel);
+      hotel.setAddress(address);
     }
 
-    private ContactsResponse toContactsResponse(Contact contact) {
-        if (contact == null) {
-            return null;
-        }
-        return new ContactsResponse(
-                contact.getPhone(),
-                contact.getEmail()
-        );
+    if (request.contacts() != null) {
+      Contact contact = toContactEntity(request.contacts());
+      contact.setHotel(hotel);
+      hotel.setContact(contact);
     }
 
-    private ArrivalTimeResponse toArrivalTimeResponse(ArrivalTime arrivalTime) {
-        if (arrivalTime == null) {
-            return null;
-        }
-        return new ArrivalTimeResponse(
-                arrivalTime.getCheckIn(),
-                arrivalTime.getCheckOut()
-        );
+    if (request.arrivalTime() != null) {
+      ArrivalTime arrivalTime = toArrivalTimeEntity(request.arrivalTime());
+      arrivalTime.setHotel(hotel);
+      hotel.setArrivalTime(arrivalTime);
     }
 
-    private Address toAddressEntity(AddressRequest request) {
-        if (request == null) {
-            return null;
-        }
-        Address address = new Address();
-        address.setHouseNumber(request.houseNumber());
-        address.setStreet(request.street().strip());
-        address.setCity(request.city().strip());
-        address.setCountry(request.country().strip());
-        address.setPostCode(request.postCode().strip());
-        return address;
-    }
+    hotel.setAmenities(new HashSet<>());
+    return hotel;
+  }
 
-    private Contact toContactEntity(ContactsRequest request) {
-        if (request == null) {
-            return null;
-        }
-        Contact contact = new Contact();
-        contact.setPhone(request.phone().strip());
-        contact.setEmail(request.email().strip());
-        return contact;
+  private AddressResponse toAddressResponse(Address address) {
+    if (address == null) {
+      return null;
     }
+    return new AddressResponse(
+        address.getHouseNumber(),
+        address.getStreet(),
+        address.getCity(),
+        address.getCountry(),
+        address.getPostCode());
+  }
 
-    private ArrivalTime toArrivalTimeEntity(ArrivalTimeRequest request) {
-        if (request == null) {
-            return null;
-        }
-        ArrivalTime arrivalTime = new ArrivalTime();
-        arrivalTime.setCheckIn(request.checkIn().strip());
-        arrivalTime.setCheckOut(request.checkOut() != null ? request.checkOut().strip() : null);
-        return arrivalTime;
+  private ContactsResponse toContactsResponse(Contact contact) {
+    if (contact == null) {
+      return null;
     }
+    return new ContactsResponse(contact.getPhone(), contact.getEmail());
+  }
 
-    //for short hotel
-    private String formatAddress(Address address) {
-        if (address == null) {
-            return null;
-        }
-        return String.format("%d %s, %s, %s, %s",
-                address.getHouseNumber(),
-                address.getStreet(),
-                address.getCity(),
-                address.getPostCode(),
-                address.getCountry()
-        );
+  private ArrivalTimeResponse toArrivalTimeResponse(ArrivalTime arrivalTime) {
+    if (arrivalTime == null) {
+      return null;
     }
+    return new ArrivalTimeResponse(arrivalTime.getCheckIn(), arrivalTime.getCheckOut());
+  }
+
+  private Address toAddressEntity(AddressRequest request) {
+    if (request == null) {
+      return null;
+    }
+    Address address = new Address();
+    address.setHouseNumber(request.houseNumber());
+    address.setStreet(request.street().strip());
+    address.setCity(request.city().strip());
+    address.setCountry(request.country().strip());
+    address.setPostCode(request.postCode().strip());
+    return address;
+  }
+
+  private Contact toContactEntity(ContactsRequest request) {
+    if (request == null) {
+      return null;
+    }
+    Contact contact = new Contact();
+    contact.setPhone(request.phone().strip());
+    contact.setEmail(request.email().strip());
+    return contact;
+  }
+
+  private ArrivalTime toArrivalTimeEntity(ArrivalTimeRequest request) {
+    if (request == null) {
+      return null;
+    }
+    ArrivalTime arrivalTime = new ArrivalTime();
+    arrivalTime.setCheckIn(request.checkIn().strip());
+    arrivalTime.setCheckOut(request.checkOut() != null ? request.checkOut().strip() : null);
+    return arrivalTime;
+  }
+
+  // for short hotel
+  private String formatAddress(Address address) {
+    if (address == null) {
+      return null;
+    }
+    return String.format(
+        "%d %s, %s, %s, %s",
+        address.getHouseNumber(),
+        address.getStreet(),
+        address.getCity(),
+        address.getPostCode(),
+        address.getCountry());
+  }
 }

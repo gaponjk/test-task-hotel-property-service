@@ -1,10 +1,4 @@
 package com.gpsolutions.hotel.dto.response;
 
 public record HotelShortResponse(
-        Long id,
-        String name,
-        String description,
-        String address,
-        String phone
-) {
-}
+    Long id, String name, String description, String address, String phone) {}

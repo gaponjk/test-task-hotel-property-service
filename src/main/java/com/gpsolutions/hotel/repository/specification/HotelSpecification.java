@@ -1,5 +1,6 @@
 package com.gpsolutions.hotel.repository.specification;
 
+import com.gpsolutions.hotel.dto.request.HotelSearchRequest;
 import com.gpsolutions.hotel.entity.Address;
 import com.gpsolutions.hotel.entity.Amenity;
 import com.gpsolutions.hotel.entity.Hotel;
@@ -17,37 +18,37 @@ public final class HotelSpecification {
     private HotelSpecification() {
     }
 
-    public static Specification<Hotel> filterBy(HotelSearchCriteria hotelSearchCriteria) {
+    public static Specification<Hotel> filterBy(HotelSearchRequest hotelSearchRequest) {
         return (root, query, criteriaBuilder) -> {
-            if (hotelSearchCriteria == null) {
+            if (hotelSearchRequest == null) {
                 return criteriaBuilder.conjunction();
             }
             List<Predicate> predicates = new ArrayList<>();
-            if (hotelSearchCriteria.name() != null && !hotelSearchCriteria.name().isBlank()) {
-                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + hotelSearchCriteria.name().strip().toLowerCase() + "%"));
+            if (hotelSearchRequest.name() != null && !hotelSearchRequest.name().isBlank()) {
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + hotelSearchRequest.name().strip().toLowerCase() + "%"));
             }
-            if (hotelSearchCriteria.brand() != null && !hotelSearchCriteria.brand().isBlank()) {
-                predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(root.get("brand")), hotelSearchCriteria.brand().strip().toLowerCase()));
+            if (hotelSearchRequest.brand() != null && !hotelSearchRequest.brand().isBlank()) {
+                predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(root.get("brand")), hotelSearchRequest.brand().strip().toLowerCase()));
             }
-            boolean hasCity = hotelSearchCriteria.city() != null && !hotelSearchCriteria.city().isBlank();
-            boolean hasCountry = hotelSearchCriteria.country() != null && !hotelSearchCriteria.country().isBlank();
+            boolean hasCity = hotelSearchRequest.city() != null && !hotelSearchRequest.city().isBlank();
+            boolean hasCountry = hotelSearchRequest.country() != null && !hotelSearchRequest.country().isBlank();
 
             if (hasCity || hasCountry) {
                 Join<Hotel, Address> addressJoin = root.join("address", JoinType.INNER);
 
                 if (hasCity) {
-                    predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(addressJoin.get("city")), hotelSearchCriteria.city().strip().toLowerCase()));
+                    predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(addressJoin.get("city")), hotelSearchRequest.city().strip().toLowerCase()));
                 }
                 if (hasCountry) {
-                    predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(addressJoin.get("country")), hotelSearchCriteria.country().strip().toLowerCase()));
+                    predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(addressJoin.get("country")), hotelSearchRequest.country().strip().toLowerCase()));
                 }
             }
 
-            if (hotelSearchCriteria.amenities() != null && !hotelSearchCriteria.amenities().isEmpty()) {
+            if (hotelSearchRequest.amenities() != null && !hotelSearchRequest.amenities().isEmpty()) {
                 if (query != null) {
                     query.distinct(true);
                 }
-                List<String> normalizedAmenities = hotelSearchCriteria.amenities().stream()
+                List<String> normalizedAmenities = hotelSearchRequest.amenities().stream()
                         .filter(Objects::nonNull)
                         .map(String::strip)
                         .map(String::toLowerCase)

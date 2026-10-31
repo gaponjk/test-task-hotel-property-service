@@ -1,8 +1,7 @@
-package com.gpsolutions.hotel.repository.specification;
+package com.gpsolutions.hotel.dto.request;
 
 import java.util.List;
-//Just for Specification
-public record HotelSearchCriteria (
+public record HotelSearchRequest(
         String name,
         String brand,
         String city,

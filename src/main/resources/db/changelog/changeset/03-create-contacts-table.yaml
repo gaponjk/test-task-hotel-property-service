@@ -34,4 +34,4 @@ databaseChangeLog:
                   name: email
                   type: VARCHAR(255)
                   constraints:
-                    nullable: true
+                    nullable: false

@@ -1,0 +1,407 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261031-insert-initial-hotels
+      author: Yaraslau Haponenka
+      changes:
+        # AMENITIES
+        - insert:
+            tableName: amenities
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: "Free parking" }
+        - insert:
+            tableName: amenities
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: "Free WiFi" }
+        - insert:
+            tableName: amenities
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: name, value: "Non-smoking rooms" }
+        - insert:
+            tableName: amenities
+            columns:
+              - column: { name: id, valueNumeric: 4 }
+              - column: { name: name, value: "Concierge" }
+        - insert:
+            tableName: amenities
+            columns:
+              - column: { name: id, valueNumeric: 5 }
+              - column: { name: name, value: "Fitness center" }
+        - insert:
+            tableName: amenities
+            columns:
+              - column: { name: id, valueNumeric: 6 }
+              - column: { name: name, value: "On-site restaurant" }
+        - insert:
+            tableName: amenities
+            columns:
+              - column: { name: id, valueNumeric: 7 }
+              - column: { name: name, value: "Pet-friendly rooms" }
+        - insert:
+            tableName: amenities
+            columns:
+              - column: { name: id, valueNumeric: 8 }
+              - column: { name: name, value: "Room service" }
+        - insert:
+            tableName: amenities
+            columns:
+              - column: { name: id, valueNumeric: 9 }
+              - column: { name: name, value: "Business center" }
+        - insert:
+            tableName: amenities
+            columns:
+              - column: { name: id, valueNumeric: 10 }
+              - column: { name: name, value: "Meeting rooms" }
+        # HOTELS
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: "DoubleTree by Hilton Minsk" }
+              - column: { name: description, value: "The DoubleTree by Hilton Hotel Minsk offers 193 luxurious rooms in the Belorussian capital and stunning views of Minsk city from the hotel's 20th floor ..." }
+              - column: { name: brand, value: "Hilton" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: "Minsk Marriott Hotel" }
+              - column: { name: description, value: "Upscale riverside hotel offering refined dining, an indoor pool, a spa, and extensive event spaces." }
+              - column: { name: brand, value: "Marriott" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: name, value: "Hampton by Hilton Brest" }
+              - column: { name: description, value: "Modern and comfortable hotel situated near the border and key cultural attractions." }
+              - column: { name: brand, value: "Hilton" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, valueNumeric: 4 }
+              - column: { name: name, value: "Radisson Blu Belorusskaya Hotel" }
+              - column: { name: description, value: "Contemporary hotel with stylish rooms, meeting spaces, and Italian cuisine." }
+              - column: { name: brand, value: "Radisson" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, valueNumeric: 5 }
+              - column: { name: name, value: "ibis Styles Warsaw City" }
+              - column: { name: description, value: "Modern budget design hotel located centrally with easy access to transport hubs." }
+              - column: { name: brand, value: "Accor" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, valueNumeric: 6 }
+              - column: { name: name, value: "Kronon Park Hotel" }
+              - column: { name: description, value: "Charming boutique hotel located in a picturesque forest park on the outskirts of Grodno." }
+              - column: { name: brand, value: "Boutique" }
+
+        # ADDRESSES
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: hotel_id, valueNumeric: 1 }
+              - column: { name: house_number, valueNumeric: 9 }
+              - column: { name: street, value: "Pobediteley Avenue" }
+              - column: { name: city, value: "Minsk" }
+              - column: { name: country, value: "Belarus" }
+              - column: { name: post_code, value: "220004" }
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: hotel_id, valueNumeric: 2 }
+              - column: { name: house_number, valueNumeric: 20 }
+              - column: { name: street, value: "Pobediteley Avenue" }
+              - column: { name: city, value: "Minsk" }
+              - column: { name: country, value: "Belarus" }
+              - column: { name: post_code, value: "220020" }
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: hotel_id, valueNumeric: 3 }
+              - column: { name: house_number, valueNumeric: 41 }
+              - column: { name: street, value: "Varshavskoye Highway" }
+              - column: { name: city, value: "Brest" }
+              - column: { name: country, value: "Belarus" }
+              - column: { name: post_code, value: "224018" }
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, valueNumeric: 4 }
+              - column: { name: hotel_id, valueNumeric: 4 }
+              - column: { name: house_number, valueNumeric: 26 }
+              - column: { name: street, value: "3rd Yamskogo Polya Street" }
+              - column: { name: city, value: "Moscow" }
+              - column: { name: country, value: "Russia" }
+              - column: { name: post_code, value: "125040" }
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, valueNumeric: 5 }
+              - column: { name: hotel_id, valueNumeric: 5 }
+              - column: { name: house_number, valueNumeric: 4 }
+              - column: { name: street, value: "Grzybowska" }
+              - column: { name: city, value: "Warsaw" }
+              - column: { name: country, value: "Poland" }
+              - column: { name: post_code, value: "00-132" }
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, valueNumeric: 6 }
+              - column: { name: hotel_id, valueNumeric: 6 }
+              - column: { name: house_number, valueNumeric: 19 }
+              - column: { name: street, value: "Pyshki tract" }
+              - column: { name: city, value: "Grodno" }
+              - column: { name: country, value: "Belarus" }
+              - column: { name: post_code, value: "230030" }
+
+        # CONTACTS
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: hotel_id, valueNumeric: 1 }
+              - column: { name: phone, value: "+375 17 309-80-00" }
+              - column: { name: email, value: "doubletreeminsk.info@hilton.com" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: hotel_id, valueNumeric: 2 }
+              - column: { name: phone, value: "+375 17 279-30-00" }
+              - column: { name: email, value: "minsk.marriott@marriott.com" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: hotel_id, valueNumeric: 3 }
+              - column: { name: phone, value: "+375 16 253-10-00" }
+              - column: { name: email, value: "brest.info@hilton.com" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, valueNumeric: 4 }
+              - column: { name: hotel_id, valueNumeric: 4 }
+              - column: { name: phone, value: "+7 495 660-49-00" }
+              - column: { name: email, value: "info.belorusskaya@radissonblu.com" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, valueNumeric: 5 }
+              - column: { name: hotel_id, valueNumeric: 5 }
+              - column: { name: phone, value: "+48 22 211-84-00" }
+              - column: { name: email, value: "h9264@accor.com" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, valueNumeric: 6 }
+              - column: { name: hotel_id, valueNumeric: 6 }
+              - column: { name: phone, value: "+375 15 273-98-00" }
+              - column: { name: email, value: "info@kronon.by" }
+
+        # ARRIVAL_TIMES
+        - insert:
+            tableName: arrival_times
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: hotel_id, valueNumeric: 1 }
+              - column: { name: check_in, value: "14:00" }
+              - column: { name: check_out, value: "12:00" }
+        - insert:
+            tableName: arrival_times
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: hotel_id, valueNumeric: 2 }
+              - column: { name: check_in, value: "15:00" }
+              - column: { name: check_out, value: "12:00" }
+        - insert:
+            tableName: arrival_times
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: hotel_id, valueNumeric: 3 }
+              - column: { name: check_in, value: "14:00" }
+              - column: { name: check_out, value: "11:00" }
+        - insert:
+            tableName: arrival_times
+            columns:
+              - column: { name: id, valueNumeric: 4 }
+              - column: { name: hotel_id, valueNumeric: 4 }
+              - column: { name: check_in, value: "15:00" }
+              - column: { name: check_out, value: "12:00" }
+        - insert:
+            tableName: arrival_times
+            columns:
+              - column: { name: id, valueNumeric: 5 }
+              - column: { name: hotel_id, valueNumeric: 5 }
+              - column: { name: check_in, value: "14:00" }
+              - column: { name: check_out, value: "12:00" }
+        - insert:
+            tableName: arrival_times
+            columns:
+              - column: { name: id, valueNumeric: 6 }
+              - column: { name: hotel_id, valueNumeric: 6 }
+              - column: { name: check_in, value: "14:00" }
+              - column: { name: check_out, value: "12:00" }
+
+        # HOTEL_AMENITIES
+        # DoubleTree (Hilton, Minsk)
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 1 }
+              - column: { name: amenity_id, valueNumeric: 1 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 1 }
+              - column: { name: amenity_id, valueNumeric: 2 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 1 }
+              - column: { name: amenity_id, valueNumeric: 3 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 1 }
+              - column: { name: amenity_id, valueNumeric: 5 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 1 }
+              - column: { name: amenity_id, valueNumeric: 6 }
+
+        # Marriott (Marriott, Minsk)
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 2 }
+              - column: { name: amenity_id, valueNumeric: 1 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 2 }
+              - column: { name: amenity_id, valueNumeric: 2 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 2 }
+              - column: { name: amenity_id, valueNumeric: 4 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 2 }
+              - column: { name: amenity_id, valueNumeric: 5 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 2 }
+              - column: { name: amenity_id, valueNumeric: 6 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 2 }
+              - column: { name: amenity_id, valueNumeric: 8 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 2 }
+              - column: { name: amenity_id, valueNumeric: 10 }
+
+        # Hampton (Hilton, Brest)
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 3 }
+              - column: { name: amenity_id, valueNumeric: 1 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 3 }
+              - column: { name: amenity_id, valueNumeric: 2 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 3 }
+              - column: { name: amenity_id, valueNumeric: 3 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 3 }
+              - column: { name: amenity_id, valueNumeric: 9 }
+
+        # Radisson (Radisson, Moscow)
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 4 }
+              - column: { name: amenity_id, valueNumeric: 2 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 4 }
+              - column: { name: amenity_id, valueNumeric: 4 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 4 }
+              - column: { name: amenity_id, valueNumeric: 5 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 4 }
+              - column: { name: amenity_id, valueNumeric: 6 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 4 }
+              - column: { name: amenity_id, valueNumeric: 10 }
+
+        # ibis Styles (Accor, Warsaw)
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 5 }
+              - column: { name: amenity_id, valueNumeric: 2 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 5 }
+              - column: { name: amenity_id, valueNumeric: 3 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 5 }
+              - column: { name: amenity_id, valueNumeric: 7 }
+
+        # Kronon Park (Boutique, Grodno)
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 6 }
+              - column: { name: amenity_id, valueNumeric: 1 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 6 }
+              - column: { name: amenity_id, valueNumeric: 2 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 6 }
+              - column: { name: amenity_id, valueNumeric: 6 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 6 }
+              - column: { name: amenity_id, valueNumeric: 7 }
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, valueNumeric: 6 }
+              - column: { name: amenity_id, valueNumeric: 8 }

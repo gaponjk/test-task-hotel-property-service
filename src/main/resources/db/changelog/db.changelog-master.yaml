@@ -11,3 +11,5 @@ databaseChangeLog:
       file: db/changelog/changeset/05-create-addresses-table.yaml
   - include:
       file: db/changelog/changeset/06-create-hotel-amenities-table.yaml
+  - include:
+      file: db/changelog/data/01-insert-initial-data.yaml

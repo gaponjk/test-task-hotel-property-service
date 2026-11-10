@@ -15,6 +15,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.util.List;
+import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,12 +27,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/property-view")
-@Tag(name = "Hotel Controller", description = "Operations for hotel management, searching, and analytics")
+@Tag(
+    name = "Hotel Controller",
+    description = "Operations for hotel management, searching, and analytics")
 public class HotelController {
 
   private final HotelService hotelService;
@@ -41,9 +42,11 @@ public class HotelController {
 
   @Operation(summary = "Get list of all hotels with short information")
   @ApiResponse(
-          responseCode = "200",
-          description = "Hotels successfully retrieved",
-          content = @Content(array = @ArraySchema(schema = @Schema(implementation = HotelShortResponse.class))))
+      responseCode = "200",
+      description = "Hotels successfully retrieved",
+      content =
+          @Content(
+              array = @ArraySchema(schema = @Schema(implementation = HotelShortResponse.class))))
   @GetMapping("/hotels")
   public List<HotelShortResponse> getAllHotels() {
     return hotelService.getAllHotels();
@@ -51,27 +54,29 @@ public class HotelController {
 
   @Operation(summary = "Get detailed hotel information by ID")
   @ApiResponses({
-          @ApiResponse(
-                  responseCode = "200",
-                  description = "Hotel details successfully retrieved",
-                  content = @Content(schema = @Schema(implementation = HotelDetailsResponse.class))),
-          @ApiResponse(
-                  responseCode = "404",
-                  description = "Hotel not found with the specified ID",
-                  content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    @ApiResponse(
+        responseCode = "200",
+        description = "Hotel details successfully retrieved",
+        content = @Content(schema = @Schema(implementation = HotelDetailsResponse.class))),
+    @ApiResponse(
+        responseCode = "404",
+        description = "Hotel not found with the specified ID",
+        content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   })
   @GetMapping("/hotels/{id}")
   public HotelDetailsResponse getHotelById(
-          @Parameter(description = "Unique identifier of the hotel", example = "1")
-          @PathVariable Long id) {
+      @Parameter(description = "Unique identifier of the hotel", example = "1") @PathVariable
+          Long id) {
     return hotelService.getHotelById(id);
   }
 
   @Operation(summary = "Search hotels by filter parameters (name, brand, city, country, amenities)")
   @ApiResponse(
-          responseCode = "200",
-          description = "Filtered list of hotels",
-          content = @Content(array = @ArraySchema(schema = @Schema(implementation = HotelShortResponse.class))))
+      responseCode = "200",
+      description = "Filtered list of hotels",
+      content =
+          @Content(
+              array = @ArraySchema(schema = @Schema(implementation = HotelShortResponse.class))))
   @GetMapping("/search")
   public List<HotelShortResponse> searchHotels(@ModelAttribute HotelSearchRequest request) {
     return hotelService.searchHotels(request);
@@ -79,14 +84,14 @@ public class HotelController {
 
   @Operation(summary = "Create a new hotel")
   @ApiResponses({
-          @ApiResponse(
-                  responseCode = "201",
-                  description = "Hotel successfully created",
-                  content = @Content(schema = @Schema(implementation = HotelShortResponse.class))),
-          @ApiResponse(
-                  responseCode = "400",
-                  description = "Invalid request payload or validation errors",
-                  content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    @ApiResponse(
+        responseCode = "201",
+        description = "Hotel successfully created",
+        content = @Content(schema = @Schema(implementation = HotelShortResponse.class))),
+    @ApiResponse(
+        responseCode = "400",
+        description = "Invalid request payload or validation errors",
+        content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   })
   @PostMapping("/hotels")
   @ResponseStatus(HttpStatus.CREATED)
@@ -96,37 +101,40 @@ public class HotelController {
 
   @Operation(summary = "Add a list of amenities to an existing hotel")
   @ApiResponses({
-          @ApiResponse(
-                  responseCode = "200",
-                  description = "Amenities successfully attached to the hotel"),
-          @ApiResponse(
-                  responseCode = "404",
-                  description = "Hotel not found",
-                  content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    @ApiResponse(
+        responseCode = "200",
+        description = "Amenities successfully attached to the hotel"),
+    @ApiResponse(
+        responseCode = "404",
+        description = "Hotel not found",
+        content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   })
   @PostMapping("/hotels/{id}/amenities")
   @ResponseStatus(HttpStatus.OK)
   public void addAmenities(
-          @Parameter(description = "Unique identifier of the hotel", example = "1")
-          @PathVariable Long id,
-          @RequestBody List<String> amenities) {
+      @Parameter(description = "Unique identifier of the hotel", example = "1") @PathVariable
+          Long id,
+      @RequestBody List<String> amenities) {
     hotelService.addAmenities(id, amenities);
   }
 
-  @Operation(summary = "Get hotel count histogram grouped by specified parameter (brand, city, country, amenities)")
+  @Operation(
+      summary =
+          "Get hotel count histogram grouped by specified parameter (brand, city, country, amenities)")
   @ApiResponses({
-          @ApiResponse(
-                  responseCode = "200",
-                  description = "Histogram successfully calculated"),
-          @ApiResponse(
-                  responseCode = "400",
-                  description = "Unsupported histogram parameter provided",
-                  content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    @ApiResponse(responseCode = "200", description = "Histogram successfully calculated"),
+    @ApiResponse(
+        responseCode = "400",
+        description = "Unsupported histogram parameter provided",
+        content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   })
   @GetMapping("/histogram/{param}")
   public Map<String, Long> getHistogram(
-          @Parameter(description = "Grouping parameter: brand, city, country, amenities", example = "city")
-          @PathVariable String param) {
+      @Parameter(
+              description = "Grouping parameter: brand, city, country, amenities",
+              example = "city")
+          @PathVariable
+          String param) {
     return hotelService.getHistogram(param);
   }
 }
